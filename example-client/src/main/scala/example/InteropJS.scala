@@ -51,7 +51,7 @@ object ScalaJSInterop {
  */
 class Foo extends js.Object {
   def test: Unit = {
-    dom.alert("Test add-hoc method")
+    dom.alert("Test add-hoc method") /* deprecated */
   }
 }
 
@@ -71,7 +71,31 @@ class Person(val firstName: String) extends js.Object{
 class Student(firstName: String, val subject: String) extends Person(firstName) {
   def sayGoodBye(): Unit = js.native
 
-  def notExistInJs(): Unit = {
-    dom.alert("You will not see this")
-  }
+  def notExistInJs(): Unit = js.native
+}
+
+import org.scalajs.dom._
+
+/**
+ * A MessageEvent is sent to clients using WebSockets when data is received from the
+ * server. This is delivered to the listener indicated by the WebSocket object's
+ * onmessage attribute.
+ *
+ * MDN
+ */
+class MessageEvent extends Event {
+  def source: Window = js.native
+
+  def origin: String = js.native
+
+  /**
+   * The data from the server (`String`, [[Blob]], or `ArrayBuffer`)
+   *
+   * MDN
+   */
+  def data: Any = js.native
+
+  def initMessageEvent(typeArg: String, canBubbleArg: Boolean, cancelableArg: Boolean, dataArg: js.Any, originArg: String, lastEventIdArg: String, sourceArg: Window): Unit = js.native
+
+  def ports: js.Any = js.native
 }
